@@ -30,11 +30,13 @@
 #define GLOBAL_ACTION_SLEEP 98
 #define GLOBAL_ERROR 99
 
+#define DOCBOX_PORT_SCAN_UPDATE 9000
+
 extern uint8 global_status;
 
 
-extern const String host ;
-extern const int port;
+extern String host ;
+extern  int port;
 
 
 // initialize ST7735 TFT library with hardware SPI module
@@ -51,6 +53,10 @@ struct _button_handler {
 #define GO_BACK 2
 #define GO_REMAIN 3
 #define GO_SLEEP 4
+
+#define GO_ERROR 5
+#define GO_WARNING 6
+#define GO_OK 7
 
 
 // ******************  General  ****************************************

@@ -3,6 +3,7 @@
 //
 #include "main.h"
 #include "menu_main.h"
+#include "menu_copy.h"
 
 uint main_menu() {
 
@@ -30,7 +31,8 @@ uint main_menu() {
     global_status = GLOBAL_ACTION_MAIN_MENU;
     struct _button_handler buttonHandler[4];
     buttonHandler[0].button_action = menu_start_scanner;
+    buttonHandler[1].button_action = menu_start_copy;
 
-    return HandleButtons(buttons, 1, buttonHandler);
+    return HandleButtons(buttons, 2, buttonHandler, TOUCH_SECONDS_WAIT);
 }
 

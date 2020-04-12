@@ -13,8 +13,8 @@
 #define X_MAX 160
 #define Y_MAX 128
 
-#define TFT_X_SCALE X_MAX/4096
-#define TFT_Y_SCALE Y_MAX/4096
+#define TFT_X_SCALE (X_MAX/4096)
+#define TFT_Y_SCALE (Y_MAX/4096)
 
 #define B_X_SPACE 10
 #define B_Y_SPACE 10
@@ -28,6 +28,6 @@
 
 void drawtext(char *text, uint16_t color);
 void raise_error(const String str_text);
-uint HandleButtons(Adafruit_GFX_Button *buttons, uint button_count, struct _button_handler * ButtonHandler);
+uint HandleButtons(Adafruit_GFX_Button *buttons, uint button_count, struct _button_handler *ButtonHandler, uint touch_seconds_wait);
 
 #endif //TOUCHSWITCH_TFT_HELPER_H

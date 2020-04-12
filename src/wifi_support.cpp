@@ -377,3 +377,40 @@ String readHttpRequest(WiFiClient client) {
     return result;
 
 }
+
+String read_server_answer() {
+
+    WiFiServer wifiServer(8081);
+    wifiServer.begin();
+
+    char msg[25] = {0};
+    uint i = 0;
+    String str_msg = "";
+
+
+    DPL("Waiting for DOCBOX to tell me the status!");
+    while (1) {
+        WiFiClient server = wifiServer.available();
+        if (server) {
+            DPL("Client found:");
+            while (server.connected() || server.available()) {
+                while (server.available() > 0) {
+                    char c = server.read();
+                    if (i < 23) {
+                        msg[i++] = c;
+                    }
+                    DP(c);
+                }
+            }
+            server.stop();
+            DP("Client message:");
+            DP(msg);
+            DPL("<-");
+            str_msg = String(msg);
+//            update_status(String(msg), 1);
+            break;
+        }
+    }
+    wifiServer.stop();
+    return str_msg;
+}

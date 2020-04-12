@@ -24,14 +24,14 @@ void raise_error(const String str_text) {
     DP("ERROR:");DPL(str_text);
 }
 
-uint HandleButtons(Adafruit_GFX_Button *buttons, uint button_count, struct _button_handler * ButtonHandler) {
+uint HandleButtons(Adafruit_GFX_Button *buttons, uint button_count, struct _button_handler *ButtonHandler, uint touch_seconds_wait= TOUCH_SECONDS_WAIT) {
 
-    int wait_for_touch = 0;
+    int wait_for_touch_cnt = 0;
 
 
     while (true) {
 
-        wait_for_touch++;
+        wait_for_touch_cnt++;
 
         if (ts.touched()) {
             TS_Point p = ts.getPoint();
@@ -65,7 +65,7 @@ uint HandleButtons(Adafruit_GFX_Button *buttons, uint button_count, struct _butt
 
 //*** Go Back to sleep if no button is pressed for some-time ***********************
 
-        if (wait_for_touch > TOUCH_SECONDS_WAIT * 10) {
+        if (wait_for_touch_cnt > touch_seconds_wait * 10) {
             return GO_SLEEP;
         }
 

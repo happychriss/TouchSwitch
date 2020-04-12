@@ -27,6 +27,7 @@ struct {
 } rtcData;
 
 uint8 PostMessage(String Action, const String postData, String *Response);
+String read_server_answer();
 uint32_t calculateCRC32( const uint8_t *data, size_t length );
 void MDNSServiceQueryCallback(MDNSResponder::MDNSServiceInfo serviceInfo, MDNSResponder::AnswerType answerType, bool p_bSetContent);
 

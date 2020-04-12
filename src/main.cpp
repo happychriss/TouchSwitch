@@ -24,8 +24,8 @@ char web_server_uri[100] = {0};
 char post_parameter[100] = {0};
 
 
-const String host = DOCBOX_SERVER;
-const int port =DOCBOX_PORT;
+String host ;
+int port ;
 
 
 //************************* Setup ************************************************************************
@@ -33,8 +33,12 @@ const int port =DOCBOX_PORT;
 void setup() {
     pinMode(PIC16_NO_SLEEP, OUTPUT);
     digitalWrite(PIC16_NO_SLEEP, HIGH);
+
 #ifdef MYDEBUG
-    Serial.begin(9600);
+    Serial.begin(115200);
+#endif
+
+#ifdef MYDEBUG_SERIAL
     SerialKeyWait();
 #endif
 }
@@ -79,18 +83,18 @@ void loop() {
             break;
         }
 
+        host=MDNS.IP(0).toString();
+        port=MDNS.port(0);
 
-        DP("Server found:");
-        DP(MDNS.IP(0));
-        DP(":");
-        DPL(MDNS.port(0));
+        DP("Server found:");DP(host);DP(":");DPL(port);
 
-
-        DPL("**** Register TouchSwitch ");
-        String PostData = "{\"connector\":{\"service\":\"Touchswitch\",\"uri\":\"" + WiFi.localIP().toString() + ":8080\",\"uid\":\"5\",\"prio\":\"1\"}}";
         String response;
+        DPL("**** Register TouchSwitch ");
+        String PostData = "{\"connector\":{\"service\":\"TouchSwitch\",\"uri\":\"" + WiFi.localIP().toString() + ":8081\",\"uid\":\"5\",\"prio\":\"1\"}}";
+
         if (PostMessage("connectors", PostData, &response)) {
             raise_error("Could not connect to DocBox Server");
+            break;
         }
 
         //******************** Main Menu Loop until GO to Sleep **********************************
